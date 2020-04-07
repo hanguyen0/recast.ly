@@ -5,6 +5,14 @@ import VideoPlayer from './VideoPlayer.js';
 class App extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      selected: false,
+      index: 0
+    }
+  }
+  onClickVideo(index) {
+    this.setState({index});
+    this.render();
   }
   render() {
     return(
@@ -16,14 +24,13 @@ class App extends React.Component {
       </nav>
       <div className="row">
         <div className="col-md-7">
-          <div>
-            <VideoPlayer video={exampleVideoData[0]}/>
+          <div id='playerSpot'>
+            <VideoPlayer video={exampleVideoData[this.state.index]}/>
           </div>
         </div>
         <div className="col-md-5">
           <div>
-          <h5><em><VideoList videos={exampleVideoData} /></em></h5>
-
+          <h5><em><VideoList videos={exampleVideoData} onCluck={this.onClickVideo.bind(this)}/></em></h5>
           </div>
         </div>
       </div>

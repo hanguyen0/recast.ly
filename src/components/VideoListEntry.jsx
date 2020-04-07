@@ -1,5 +1,10 @@
-var VideoListEntry = (props) => (
-  <div className="video-list-entry media">
+import exampleVideoData from '../data/exampleVideoData.js';
+import VideoPlayer from './VideoPlayer.js';
+
+let VideoListEntry = (props) => {
+  //{console.log(props.index)}
+  return (
+  <div className="video-list-entry media" onClick={() => props.videoClick(props.index)}>
     <div className="media-left media-middle">
       <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
     </div>
@@ -8,7 +13,8 @@ var VideoListEntry = (props) => (
       <div className="video-list-entry-detail">{props.video.snippet.description}</div>
     </div>
   </div>
-);
+  )
+};
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated

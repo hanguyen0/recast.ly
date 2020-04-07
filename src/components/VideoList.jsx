@@ -2,9 +2,9 @@
 import VideoListEntry from './VideoListEntry.js';
 //import App from './components/App.js';
 
-const VideoList = (props) => (
+const VideoList = (props) => (//props{videos:[], onclick: func}
   <div className="video-list">
-    {props.videos.map(video => <VideoListEntry video = { video }/>)}
+    {props.videos.map((video, index) => <VideoListEntry video={video} index={index} videoClick={props.onCluck} />)}
     {/* <div><h5><em>videoListEntry</em> view goes here</h5></div>
     <div><h5><em>videoListEntry</em> view goes here</h5></div>
     <div><h5><em>videoListEntry</em> view goes here</h5></div>
