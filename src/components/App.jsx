@@ -1,14 +1,35 @@
 import exampleVideoData from '../data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
+import Search from './Search.js';
+import searchYouTube from '../lib/SearchYouTube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 
 class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       selected: false,
-      index: 0
+      index: 0,
+      videos: exampleVideoData,
+      currentVideo: exampleVideoData[0]
     }
+  }
+  componentDidMount() {
+    this.getYouTubeVideos('cute kittens')
+  }
+  getYouTubeVideos(query) {
+    var options = {
+      key: this.props.API_KEY,
+      query:query,
+
+    }
+    searchYouTube(options, (videos) => {
+      this.setState({
+        videos:videos,
+        currentVideo: videos[0]
+      });
+    });
   }
   onClickVideo(index) {
     this.setState({index});
@@ -19,7 +40,7 @@ class App extends React.Component {
       <div>
       <nav className="navbar">
         <div className="col-md-6 offset-md-3">
-          <div><h5><em>search</em> view goes here</h5></div>
+          <Search handlesearchinputchange={this.getYouTubeVideos.bind(this)}/>
         </div>
       </nav>
       <div className="row">
@@ -30,7 +51,7 @@ class App extends React.Component {
         </div>
         <div className="col-md-5">
           <div>
-          <h5><em><VideoList videos={exampleVideoData} onCluck={this.onClickVideo.bind(this)}/></em></h5>
+          <VideoList videos={exampleVideoData} onCluck={this.onClickVideo.bind(this)}/>
           </div>
         </div>
       </div>
